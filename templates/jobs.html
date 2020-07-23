@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block title %} Jobs {% endblock %}
+
+
+{% block body %}
+
+<style type="text/css">
+  h1 {
+    margin-top: 10px;
+  }
+  .input-group {
+    margin-bottom: 10px;
+  }
+</style>
+
+<div class="container">
+  <h1>Jobs</h1>
+</div>
+
+
+<div class="container">
+<div class="input-group">
+
+<select onchange="job_type(this.value);">
+  <option value="" selected disabled>Type</option>
+  <option value="office">Office</option>
+  <option value="remote">Remote</option>
+</select>
+
+<select onchange="sort_jobs(this.value);">
+  <option value="" selected disabled>Date</option>
+  <option value="descending">Oldest</option>
+  <option value="ascending">Latest</option>
+</select>
+
+<input type="text" id="location" size="50" placeholder="Location...">
+<button class="btn btn-outline-primary" onClick="find_location();" type="button">Search</button>
+
+</div>
+</div>
+
+<div class="container">
+<table class="table" id="myTable">
+  <thead class="thead-dark">
+    <tr>
+      <th>Type</th>
+      <th>Location</th>
+      <th>Posted on</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for job in all_jobs %}
+      <tr>
+        <td>{{ job.job_type }}</td>
+        <td>{{ job.location }}</td>
+        <td>{{ job.posted_on }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+
+{% load static %}
+<script type="text/javascript" src="{% static 'jobs.js' %}"></script>
+
+
+{% endblock %}
